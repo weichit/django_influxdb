@@ -51,6 +51,7 @@ def project_detail(request, pk):
         }
         return render(request, 'project_detail.html', context)
     elif (click.get(pk) == "shot"):
+        ### influxdb query ###
         infxql0 = query("select * from h2o_pH where location = 'coyote_creek' order by time desc limit 30")
         infxql1 = query("select * from h2o_temperature where location = 'santa_monica' order by time desc limit 30")
         infxtag = query("show tag values from h2o_pH with key=location")
@@ -58,7 +59,9 @@ def project_detail(request, pk):
         for series in infxtag.get_points(measurement='h2o_pH'):
             taglist.append(series['value'])
         print(taglist)
+        ### create a list of lists of <time, value> ###
         graflog0 = list()
+        ### for loop to iterate the influxdb query result ###
         for series in infxql0.get_points(measurement='h2o_pH'):
             entry = list()
             t = time.mktime(datetime.datetime.strptime(series['time'], "%Y-%m-%dT%H:%M:%SZ").timetuple())
@@ -72,6 +75,7 @@ def project_detail(request, pk):
             entry.append(int(t)*1000)
             entry.append(series['degrees'])
             graflog1.append(entry)
+        ### return html page with packed data in json format ###
         context = {
             'project' : project,
             'station' : 'shot',
