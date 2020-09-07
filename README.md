@@ -7,6 +7,10 @@ pip install django-influxdb-metrics
 
 pip install Pillow
 
+To check how to query data from InfluxDB: django_influxdb/projects/views.py
+
+To check how to integrate html page with highchart: django_influxdb/projects/templates/project_detail.html
+
 Reference:
 
 https://realpython.com/get-started-with-django-1/
