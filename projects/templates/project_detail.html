@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+<meta http-equiv="refresh" content="10" />
+<h1>{{ project.title }}</h1>
+<style>
+    .child {
+        margin: 0 auto;
+    }
+    .spacer {
+        height: 20px;
+    }
+    table.blueTable {
+        text-align:center; 
+        border: 1px solid #1C6EA4; 
+        background-color: #EEEEEE; 
+        width: 100%; 
+        text-align: center; 
+        border-collapse: collapse;
+        margin-left: auto; 
+        margin-right: auto;
+    }
+    table.blueTable td, table.blueTable th {border: 1px solid #AAAAAA; padding: 3px 2px;}
+    table.blueTable tbody td {font-size: 15px;}
+    table.blueTable tr:nth-child(even) {background: #D0E4F5;}
+    table.blueTable thead {
+        background: #1C6EA4;
+        background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+        background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+        background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+        border-bottom: 2px solid #444444;
+    }
+    table.blueTable thead th {
+        font-size: 15px;
+        font-weight: bold;
+        color: #FFFFFF;
+        border-left: 2px solid #D0E4F5;
+    }
+    table.blueTable thead th:first-child {border-left: none;}
+    table.blueTable tfoot {
+        font-size: 14px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #D0E4F5;
+        background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+        background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+        background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+        border-top: 2px solid #444444;
+    }
+    table.blueTable tfoot td {font-size: 14px;}
+    table.blueTable tfoot .links {text-align: right;}
+    table.blueTable tfoot .links a{
+        display: inline-block;
+        background: #1C6EA4;
+        color: #FFFFFF;
+        padding: 2px 8px;
+        border-radius: 5px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12 col-centered">
+        <h5 class="text-center">{{ influxql }}</h5>    
+        <!--img src="{% static project.image %}" alt="" width="100%"-->
+    </div>
+    {% if station == 'valve' %}
+    <div class="child">
+    <p class="text-center">Latest timestamp: {{ timestamp }}</p>
+    <table class="blueTable">
+        <thead>
+        <tr>
+        <th>data1</th>
+        <th>data2</th>
+        <th>data3</th>
+        <th>data4</th>
+        <th>data5</th>
+        <th>data6</th>
+        <th>data7</th>
+        <th>data8</th>
+        <th>data9</th>
+        <th>data10</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+        <td colspan="10">
+        <!--div class="links">
+            <a href="#">&laquo;</a> 
+            <a class="active" href="#">1</a> 
+            <a href="#">2</a> 
+            <a href="#">3</a> 
+            <a href="#">4</a> 
+            <a href="#">&raquo;</a>
+        </div-->
+        </td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <tr>
+        <td>{{ value1 }}</td>
+        <td>{{ value2 }}</td>
+        <td>{{ value1 }}</td>
+        <td>{{ value2 }}</td>
+        <td>{{ value1 }}</td>
+        <td>{{ value2 }}</td>
+        <td>{{ value1 }}</td>
+        <td>{{ value2 }}</td>
+        <td>{{ value1 }}</td>
+        <td>{{ value2 }}</td>
+        </tr>
+        <tr>
+        <td>{{ value3 }}</td>
+        <td>{{ value4 }}</td>
+        <td>{{ value3 }}</td>
+        <td>{{ value4 }}</td>
+        <td>{{ value3 }}</td>
+        <td>{{ value4 }}</td>
+        <td>{{ value3 }}</td>
+        <td>{{ value4 }}</td>
+        <td>{{ value3 }}</td>
+        <td>{{ value4 }}</td>
+        </tr>
+        <tr>
+        <td>{{ value1 }}</td>
+        <td>{{ value3 }}</td>
+        <td>{{ value1 }}</td>
+        <td>{{ value3 }}</td>
+        <td>{{ value1 }}</td>
+        <td>{{ value3 }}</td>
+        <td>{{ value1 }}</td>
+        <td>{{ value3 }}</td>
+        <td>{{ value1 }}</td>
+        <td>{{ value3 }}</td>
+        </tr>
+        <tr>
+        <td>{{ value2 }}</td>
+        <td>{{ value4 }}</td>
+        <td>{{ value2 }}</td>
+        <td>{{ value4 }}</td>
+        <td>{{ value2 }}</td>
+        <td>{{ value4 }}</td>
+        <td>{{ value2 }}</td>
+        <td>{{ value4 }}</td>
+        <td>{{ value2 }}</td>
+        <td>{{ value4 }}</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    {% elif station == 'shot' %}
+    <div class="child">
+        <div id="container" class="container" style="display: inline; margin: 0 auto"></div>
+        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+        <script src="https://code.highcharts.com/modules/data.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script type="text/javascript">
+        Highcharts.setOptions({
+            colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        });
+        Highcharts.chart('container', {
+            chart: { zoomType: 'x'},
+            time: { timezone: 'Singapore'}, 
+            title: { text: 'Plot time-series data from local InfluxDB'},
+            subtitle: {
+                text: document.ontouchstart === undefined ? 
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+            },
+            xAxis: { 
+                type: 'datetime', 
+                labels: {
+					formatter:function(){
+						return Highcharts.dateFormat('%H:%M:%S',this.value);
+					},
+				},
+            },
+            yAxis: {
+                title: { text: 'Value'}
+            },
+            legend: { enabled: false},
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[1]],
+                            [1, Highcharts.color(Highcharts.getOptions().colors[1]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: [{
+                type: 'area',
+                name: 'Value',
+                data: {{ loggraf1 }}
+            }]
+        });
+        </script>
+        <div class="spacer"></div>
+        <div id="container2" class="container" style="display: inline; margin: 0 auto"></div>
+        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+        <script src="https://code.highcharts.com/modules/data.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        <script type="text/javascript">
+        Highcharts.chart('container2', {
+            chart: { zoomType: 'x'},
+            title: { text: 'Plot time-series data from local InfluxDB'},
+            subtitle: {
+                text: document.ontouchstart === undefined ? 
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+            },
+            xAxis: { 
+                type: 'datetime', 
+                labels: {
+					formatter:function(){
+						return Highcharts.dateFormat('%H:%M:%S',this.value);
+					},
+				},
+            },
+            yAxis: {
+                title: { text: 'Value'}
+            },
+            legend: { enabled: false},
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: [{
+                type: 'area',
+                name: 'Value',
+                data: {{ loggraf2 }}
+            }]
+        });
+        </script>
+    </div>
+    {% endif %}
+    <!--div class="col-md-4">
+        <h5>About the project:</h5>
+        <p>{{ project.description }}</p>
+        <br>
+        <h5>Technology used:</h5>
+        <p>{{ project.technology }}</p>
+        <p>{{ influxql }}</p>
+    </div-->
+    
+    <!--div id="container" style="min-width: 900px; height: 600px; margin: 0 auto"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Plot time-series data from local InfluxDB'
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ? 
+                    'Click and drag in the plot area to zoom in' : 
+                    'Pinch the chart to zoom in'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+            series: [{
+                type: 'area',
+                name: 'Value',
+                data: {{ logdata }}
+            }]
+        });
+    </script-->
+</div>
+{% endblock %}
