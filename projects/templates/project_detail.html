@@ -208,7 +208,7 @@
             series: [{
                 type: 'area',
                 name: 'Value',
-                data: {{ loggraf1 }}
+                data: {{ loggraf1 }} ### insert from the context in views.py ###
             }]
         });
         </script>
@@ -268,83 +268,11 @@
             series: [{
                 type: 'area',
                 name: 'Value',
-                data: {{ loggraf2 }}
+                data: {{ loggraf2 }} ### insert from the context in views.py ###
             }]
         });
         </script>
     </div>
     {% endif %}
-    <!--div class="col-md-4">
-        <h5>About the project:</h5>
-        <p>{{ project.description }}</p>
-        <br>
-        <h5>Technology used:</h5>
-        <p>{{ project.technology }}</p>
-        <p>{{ influxql }}</p>
-    </div-->
-    
-    <!--div id="container" style="min-width: 900px; height: 600px; margin: 0 auto"></div>
-    <script src="https://code.highcharts.com/highcharts.src.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script>
-        Highcharts.chart('container', {
-            chart: {
-                zoomType: 'x'
-            },
-            title: {
-                text: 'Plot time-series data from local InfluxDB'
-            },
-            subtitle: {
-                text: document.ontouchstart === undefined ? 
-                    'Click and drag in the plot area to zoom in' : 
-                    'Pinch the chart to zoom in'
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: 'Value'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },
-            series: [{
-                type: 'area',
-                name: 'Value',
-                data: {{ logdata }}
-            }]
-        });
-    </script-->
 </div>
 {% endblock %}
