@@ -1,0 +1,79 @@
+=== 1.3.X (ongoing - to be released as 1.4.0) ===
+
+- Added Dockerfile for running tests against a real instance
+- Improved util functions
+- Adds try-catch-block around write_points() call in middleware
+  to fail silently and not disrupt the actual request
+
+=== 1.3.0 ===
+
+- Prepared app for Django 1.9 and Python 3.5
+- Add INFLUXDB_SSL and INFLUXDB_SSL_VERIFY settings when creating InfluxDBClient
+- Added setting INFLUXDB_USE_CELERY
+- If celery can be imported and if the setting is set to True, `write_points`
+  will be called as a delayed celery task
+
+=== 1.1.0 ===
+
+- Added setting INFLUXDB_POSTGRESQL_USE_LOCALHOST
+- Added mandatory setting INFLUXDB_TIMEOUT (seconds as integer)
+- Added setting INFLUXDB_USE_THREADING which defaults to False
+
+=== 1.0.0 ===
+
+- BREAKING CHANGES
+- Only supporting InfluxDB >= 0.9 now
+- New setting: INFLUXDB_TAGS_HOST (this tag will be added to all writes so
+  that you can filter your data for different hosts.)
+- Removed settings for prefix and postfix
+- Removed all system related metrics because Telegraf does it better
+
+=== 0.3.2 ===
+
+- Added threading for write_points call
+- Added tracking of marketing campaigns via URL query parameter
+- Migrated model signals to custom user model
+
+=== 0.3 ===
+
+- Added `influxdb_get_memcached_usage` command
+- Added `influxdb_get_usage_per_minute` command
+- Added print statements to all management commands
+- Bugfix: Convertig CPU usage to float before sending to InfluxDB
+- added `path` column to `default.django.request` series
+
+=== 0.2 ===
+
+- added `is_authenticated`, `is_staff` and `is_superuser` to
+  `default.django.request` series.
+- `is_ajax` now gets booleans instead of 1 or 0
+- added `default.` to all series names
+- added `INFLUXDB_DISABLED` setting
+- added `influxdb_get_cpu_usage` command
+- added `utils.query()` method
+- also saving `request.get_full_path` in `default.django.request` series into
+  `full_path` column
+
+=== 0.1 ===
+- Initial commit
+
+
+# Suggested file syntax:
+#
+# === (ongoing) ===
+# - this is always on top of the file
+# - when you release a new version, you rename the last `(ongoing)` to the new
+#   version and add a new `=== (ongoing) ===` to the top of the file
+#
+# === 1.0 ===
+# - a major version is created when the software reached a milestone and is
+#   feature complete
+#
+# === 0.2 ===
+# - a minor version is created when new features or significant changes have
+#   been made to the software.
+#
+# === 0.1.1 ==
+# - for bugfix releases, fixing typos in the docs, restructuring things, simply
+#   anything that doesn't really change the behaviour of the software you
+#   might use the third digit which is also sometimes called the build number.
